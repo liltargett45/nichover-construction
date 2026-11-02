@@ -1,57 +1,23 @@
 import { useState } from 'react';
 
 const projects = [
-  {
-    title: 'Modern Residence',
-    type: 'New Build',
-    img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    title: 'Family Home – Accra',
-    type: 'New Build',
-    img: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    title: 'Kitchen Renovation',
-    type: 'Renovation',
-    img: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    title: 'Luxury Interior',
-    type: 'Interior',
-    img: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    title: 'Multi-Storey Build',
-    type: 'New Build',
-    img: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=80',
-  },
-  {
-    title: 'Contemporary Bungalow',
-    type: 'New Build',
-    img: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=800&q=80',
-  },
+  { title: 'Modern Residence', type: 'New Build', img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80' },
+  { title: 'Family Home – Accra', type: 'New Build', img: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80' },
+  { title: 'Kitchen Renovation', type: 'Renovation', img: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=800&q=80' },
+  { title: 'Luxury Interior', type: 'Interior', img: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80' },
+  { title: 'Multi-Storey Build', type: 'New Build', img: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=80' },
+  { title: 'Contemporary Bungalow', type: 'New Build', img: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=800&q=80' },
+];
+
+const testimonials = [
+  { name: 'Kwame A.', role: 'Homeowner, La', text: 'Nichover handled our full house renovation with care and professionalism. The finishing was excellent and they finished on time.' },
+  { name: 'Ama S.', role: 'New Build Client', text: 'From foundation to keys, the team was transparent and reliable. We are very happy with our new home.' },
+  { name: 'Joseph M.', role: 'Office Fit-out', text: 'They delivered a clean, modern interior for our office. Communication was clear throughout the project.' },
 ];
 
 export default function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [quoteResult, setQuoteResult] = useState('');
-  const [blogResult, setBlogResult] = useState('');
   const [formStatus, setFormStatus] = useState('');
-
-  function handleAIQuote(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setQuoteResult(
-      'AI Quote Assistant is available on the full version of the site:\nhttps://nichover-construction-ai-kmny24.v2.appdeploy.ai/\n\nPlease visit that link to generate an estimate, or call us on 055 772 9151 for a free quote.'
-    );
-  }
-
-  function handleBlogGenerate(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setBlogResult(
-      'AI Blog Helper is available on the full version of the site:\nhttps://nichover-construction-ai-kmny24.v2.appdeploy.ai/\n\nPlease visit that link to generate blog content.'
-    );
-  }
 
   function handleQuoteSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -97,7 +63,7 @@ export default function App() {
               <a href="#about" className="hover:text-[#3D2A2A]">About</a>
               <a href="#services" className="hover:text-[#3D2A2A]">Services</a>
               <a href="#projects" className="hover:text-[#3D2A2A]">Projects</a>
-              <a href="#ai-tools" className="hover:text-[#3D2A2A]">AI Tools</a>
+              <a href="#testimonials" className="hover:text-[#3D2A2A]">Testimonials</a>
               <a href="#contact" className="hover:text-[#3D2A2A]">Contact</a>
             </nav>
             <div className="hidden lg:flex items-center gap-4">
@@ -111,8 +77,8 @@ export default function App() {
         </div>
         {mobileOpen && (
           <div className="md:hidden border-t border-stone-100 bg-white px-4 py-3 space-y-2">
-            {['home', 'about', 'services', 'projects', 'ai-tools', 'contact'].map((id) => (
-              <a key={id} href={`#${id}`} onClick={() => setMobileOpen(false)} className="block py-2 capitalize">{id.replace('-', ' ')}</a>
+            {['home', 'about', 'services', 'projects', 'testimonials', 'contact'].map((id) => (
+              <a key={id} href={`#${id}`} onClick={() => setMobileOpen(false)} className="block py-2 capitalize">{id}</a>
             ))}
           </div>
         )}
@@ -200,32 +166,27 @@ export default function App() {
         </div>
       </section>
 
-      <section id="ai-tools" className="py-20 bg-stone-50">
+      <section id="testimonials" className="py-20 bg-stone-50">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
-            <p className="text-amber-700 text-sm font-semibold tracking-widest uppercase mb-3">AI Powered</p>
-            <h2 className="text-3xl md:text-4xl font-serif text-stone-900 mb-4">Smart Tools for Your Project</h2>
-            <p className="text-stone-600 max-w-2xl mx-auto">Get a quick estimate or generate blog content with AI — tailored for construction in Ghana.</p>
+            <p className="text-amber-700 text-sm font-semibold tracking-widest uppercase mb-3">Client Feedback</p>
+            <h2 className="text-3xl md:text-4xl font-serif text-stone-900 mb-4">What Our Clients Say</h2>
           </div>
-          <div className="grid lg:grid-cols-2 gap-10">
-            <div className="bg-white rounded-2xl border border-stone-200 p-6 md:p-8 shadow-sm">
-              <h3 className="text-xl font-semibold text-stone-900 mb-2">AI Quote Assistant</h3>
-              <p className="text-stone-600 text-sm mb-5">Describe your project and get a rough cost range + materials checklist (Ghana context).</p>
-              <form onSubmit={handleAIQuote} className="space-y-4">
-                <textarea name="description" rows={4} className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-[#3D2A2A]/30 outline-none" placeholder="e.g. 3-bedroom bungalow in La, standard finish, about 140 m²..." />
-                <button type="submit" className="w-full py-3 bg-[#3D2A2A] text-white font-semibold rounded-lg hover:bg-[#2a1d1d]">Generate Estimate</button>
-              </form>
-              {quoteResult && <div className="mt-5 p-4 bg-stone-50 border border-stone-200 rounded-lg text-sm whitespace-pre-wrap text-stone-700">{quoteResult}</div>}
-            </div>
-            <div className="bg-white rounded-2xl border border-stone-200 p-6 md:p-8 shadow-sm">
-              <h3 className="text-xl font-semibold text-stone-900 mb-2">AI Blog Helper</h3>
-              <p className="text-stone-600 text-sm mb-5">Type a short note about a topic and get a ready-to-publish blog post.</p>
-              <form onSubmit={handleBlogGenerate} className="space-y-4">
-                <textarea name="note" rows={4} className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-[#3D2A2A]/30 outline-none" placeholder="e.g. cost of building a 3-bedroom house in Accra 2026..." />
-                <button type="submit" className="w-full py-3 bg-amber-600 text-white font-semibold rounded-lg hover:bg-amber-700">Generate Blog Post</button>
-              </form>
-              {blogResult && <div className="mt-5 p-4 bg-stone-50 border border-stone-200 rounded-lg text-sm whitespace-pre-wrap text-stone-700 max-h-80 overflow-y-auto">{blogResult}</div>}
-            </div>
+          <div className="grid md:grid-cols-3 gap-6">
+            {testimonials.map((t) => (
+              <div key={t.name} className="bg-white rounded-2xl border border-stone-200 p-6 shadow-sm">
+                <div className="flex gap-1 text-amber-500 mb-4">
+                  {[1,2,3,4,5].map((s) => (
+                    <svg key={s} className="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" /></svg>
+                  ))}
+                </div>
+                <p className="text-stone-600 mb-5 leading-relaxed">"{t.text}"</p>
+                <div>
+                  <div className="font-semibold text-stone-900">{t.name}</div>
+                  <div className="text-sm text-stone-500">{t.role}</div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
