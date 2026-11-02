@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { api } from '@appdeploy/client';
 
 const projects = [
   {
@@ -36,50 +35,22 @@ const projects = [
 
 export default function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const [quoteLoading, setQuoteLoading] = useState(false);
   const [quoteResult, setQuoteResult] = useState('');
-  const [blogLoading, setBlogLoading] = useState(false);
   const [blogResult, setBlogResult] = useState('');
   const [formStatus, setFormStatus] = useState('');
 
-  async function handleAIQuote(e: React.FormEvent<HTMLFormElement>) {
+  function handleAIQuote(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const fd = new FormData(e.currentTarget);
-    const description = String(fd.get('description') || '').trim();
-    if (!description) {
-      setQuoteResult('Please describe your project first.');
-      return;
-    }
-    setQuoteLoading(true);
-    setQuoteResult('');
-    try {
-      const res = await api.post('/api/quote-estimate', { description });
-      setQuoteResult(res.data.text || 'No estimate generated.');
-    } catch {
-      setQuoteResult('Sorry, could not generate estimate right now. Please try again or call us.');
-    } finally {
-      setQuoteLoading(false);
-    }
+    setQuoteResult(
+      'AI Quote Assistant is available on the full version of the site:\nhttps://nichover-construction-ai-kmny24.v2.appdeploy.ai/\n\nPlease visit that link to generate an estimate, or call us on 055 772 9151 for a free quote.'
+    );
   }
 
-  async function handleBlogGenerate(e: React.FormEvent<HTMLFormElement>) {
+  function handleBlogGenerate(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const fd = new FormData(e.currentTarget);
-    const note = String(fd.get('note') || '').trim();
-    if (!note) {
-      setBlogResult('Please enter a short topic note.');
-      return;
-    }
-    setBlogLoading(true);
-    setBlogResult('');
-    try {
-      const res = await api.post('/api/blog-generate', { note });
-      setBlogResult(res.data.text || 'No post generated.');
-    } catch {
-      setBlogResult('Sorry, could not generate the post right now. Please try again.');
-    } finally {
-      setBlogLoading(false);
-    }
+    setBlogResult(
+      'AI Blog Helper is available on the full version of the site:\nhttps://nichover-construction-ai-kmny24.v2.appdeploy.ai/\n\nPlease visit that link to generate blog content.'
+    );
   }
 
   function handleQuoteSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -242,7 +213,7 @@ export default function App() {
               <p className="text-stone-600 text-sm mb-5">Describe your project and get a rough cost range + materials checklist (Ghana context).</p>
               <form onSubmit={handleAIQuote} className="space-y-4">
                 <textarea name="description" rows={4} className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-[#3D2A2A]/30 outline-none" placeholder="e.g. 3-bedroom bungalow in La, standard finish, about 140 m²..." />
-                <button type="submit" disabled={quoteLoading} className="w-full py-3 bg-[#3D2A2A] text-white font-semibold rounded-lg hover:bg-[#2a1d1d] disabled:opacity-60">{quoteLoading ? 'Generating estimate...' : 'Generate Estimate'}</button>
+                <button type="submit" className="w-full py-3 bg-[#3D2A2A] text-white font-semibold rounded-lg hover:bg-[#2a1d1d]">Generate Estimate</button>
               </form>
               {quoteResult && <div className="mt-5 p-4 bg-stone-50 border border-stone-200 rounded-lg text-sm whitespace-pre-wrap text-stone-700">{quoteResult}</div>}
             </div>
@@ -251,7 +222,7 @@ export default function App() {
               <p className="text-stone-600 text-sm mb-5">Type a short note about a topic and get a ready-to-publish blog post.</p>
               <form onSubmit={handleBlogGenerate} className="space-y-4">
                 <textarea name="note" rows={4} className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-[#3D2A2A]/30 outline-none" placeholder="e.g. cost of building a 3-bedroom house in Accra 2026..." />
-                <button type="submit" disabled={blogLoading} className="w-full py-3 bg-amber-600 text-white font-semibold rounded-lg hover:bg-amber-700 disabled:opacity-60">{blogLoading ? 'Writing post...' : 'Generate Blog Post'}</button>
+                <button type="submit" className="w-full py-3 bg-amber-600 text-white font-semibold rounded-lg hover:bg-amber-700">Generate Blog Post</button>
               </form>
               {blogResult && <div className="mt-5 p-4 bg-stone-50 border border-stone-200 rounded-lg text-sm whitespace-pre-wrap text-stone-700 max-h-80 overflow-y-auto">{blogResult}</div>}
             </div>
