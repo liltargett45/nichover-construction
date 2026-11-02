@@ -13,3 +13,32 @@ body {
 .font-serif {
   font-family: Georgia, 'Times New Roman', Times, serif;
 }
+
+/* 3D tilt card effect */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.tilt-card:hover {
+  transform: perspective(1000px) rotateX(4deg) rotateY(-6deg) scale(1.02);
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25);
+}
+
+.tilt-card img {
+  transition: transform 0.5s ease;
+}
+
+.tilt-card:hover img {
+  transform: scale(1.08);
+}
+
+/* Soft parallax-like float */
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+.float-slow {
+  animation: float-y 6s ease-in-out infinite;
+}

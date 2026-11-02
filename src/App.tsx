@@ -1,6 +1,39 @@
 import { useState } from 'react';
 import { api } from '@appdeploy/client';
 
+const projects = [
+  {
+    title: 'Modern Residence',
+    type: 'New Build',
+    img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    title: 'Family Home – Accra',
+    type: 'New Build',
+    img: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    title: 'Kitchen Renovation',
+    type: 'Renovation',
+    img: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    title: 'Luxury Interior',
+    type: 'Interior',
+    img: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    title: 'Multi-Storey Build',
+    type: 'New Build',
+    img: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    title: 'Contemporary Bungalow',
+    type: 'New Build',
+    img: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?auto=format&fit=crop&w=800&q=80',
+  },
+];
+
 export default function App() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [quoteLoading, setQuoteLoading] = useState(false);
@@ -23,9 +56,7 @@ export default function App() {
       const res = await api.post('/api/quote-estimate', { description });
       setQuoteResult(res.data.text || 'No estimate generated.');
     } catch {
-      setQuoteResult(
-        'Sorry, could not generate estimate right now. Please try again or call us.'
-      );
+      setQuoteResult('Sorry, could not generate estimate right now. Please try again or call us.');
     } finally {
       setQuoteLoading(false);
     }
@@ -45,9 +76,7 @@ export default function App() {
       const res = await api.post('/api/blog-generate', { note });
       setBlogResult(res.data.text || 'No post generated.');
     } catch {
-      setBlogResult(
-        'Sorry, could not generate the post right now. Please try again.'
-      );
+      setBlogResult('Sorry, could not generate the post right now. Please try again.');
     } finally {
       setBlogLoading(false);
     }
@@ -62,15 +91,12 @@ export default function App() {
       setFormStatus('Please fill in your name and phone number.');
       return;
     }
-    setFormStatus(
-      'Thank you! Your request has been received. We will contact you shortly.'
-    );
+    setFormStatus('Thank you! Your request has been received. We will contact you shortly.');
     e.currentTarget.reset();
   }
 
   return (
     <div className="min-h-screen flex flex-col bg-white text-stone-800">
-      {/* Header, Hero, About, Services, AI Tools, Contact, Footer - full content from live site */}
       <header className="sticky top-0 z-50 bg-white/95 backdrop-blur border-b border-stone-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
@@ -99,6 +125,7 @@ export default function App() {
               <a href="#home" className="hover:text-[#3D2A2A]">Home</a>
               <a href="#about" className="hover:text-[#3D2A2A]">About</a>
               <a href="#services" className="hover:text-[#3D2A2A]">Services</a>
+              <a href="#projects" className="hover:text-[#3D2A2A]">Projects</a>
               <a href="#ai-tools" className="hover:text-[#3D2A2A]">AI Tools</a>
               <a href="#contact" className="hover:text-[#3D2A2A]">Contact</a>
             </nav>
@@ -113,18 +140,16 @@ export default function App() {
         </div>
         {mobileOpen && (
           <div className="md:hidden border-t border-stone-100 bg-white px-4 py-3 space-y-2">
-            <a href="#home" onClick={() => setMobileOpen(false)} className="block py-2">Home</a>
-            <a href="#about" onClick={() => setMobileOpen(false)} className="block py-2">About</a>
-            <a href="#services" onClick={() => setMobileOpen(false)} className="block py-2">Services</a>
-            <a href="#ai-tools" onClick={() => setMobileOpen(false)} className="block py-2">AI Tools</a>
-            <a href="#contact" onClick={() => setMobileOpen(false)} className="block py-2">Contact</a>
+            {['home', 'about', 'services', 'projects', 'ai-tools', 'contact'].map((id) => (
+              <a key={id} href={`#${id}`} onClick={() => setMobileOpen(false)} className="block py-2 capitalize">{id.replace('-', ' ')}</a>
+            ))}
           </div>
         )}
       </header>
 
-      <section id="home" className="relative min-h-[80vh] flex items-center justify-center bg-stone-900">
+      <section id="home" className="relative min-h-[80vh] flex items-center justify-center bg-stone-900 overflow-hidden">
         <div className="absolute inset-0">
-          <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1920&q=80" alt="" className="w-full h-full object-cover opacity-55" />
+          <img src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=1920&q=80" alt="" className="w-full h-full object-cover opacity-55 scale-105" />
           <div className="absolute inset-0 bg-gradient-to-b from-stone-900/70 via-stone-900/50 to-stone-900/80" />
         </div>
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
@@ -132,8 +157,8 @@ export default function App() {
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-serif text-white mb-6 leading-tight">We Build Homes & Spaces That Last</h1>
           <p className="text-white/90 text-lg max-w-2xl mx-auto mb-10">Nichover Construction Work delivers quality renovations, new builds, interior design and architectural services across La and Greater Accra.</p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="#contact" className="px-8 py-3.5 bg-amber-600 text-white font-semibold rounded-md hover:bg-amber-700">Request Free Quote</a>
-            <a href="#ai-tools" className="px-8 py-3.5 border-2 border-white/80 text-white font-semibold rounded-md hover:bg-white/10">Try AI Tools</a>
+            <a href="#contact" className="px-8 py-3.5 bg-amber-600 text-white font-semibold rounded-md hover:bg-amber-700 transition">Request Free Quote</a>
+            <a href="#projects" className="px-8 py-3.5 border-2 border-white/80 text-white font-semibold rounded-md hover:bg-white/10 transition">View Projects</a>
           </div>
         </div>
       </section>
@@ -146,7 +171,9 @@ export default function App() {
             <p className="text-stone-600 mb-4">Nichover Construction Work is a Ghanaian construction company based in La, Accra. We specialise in quality general construction, renovations, interior designing, architectural works and surveying.</p>
             <p className="text-stone-600">From excavation to finishing, electrical works, civil works, acoustic ceilings, solar systems and supply of construction materials — we handle projects with professionalism.</p>
           </div>
-          <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=80" alt="Construction" className="rounded-2xl shadow-xl w-full aspect-[4/3] object-cover" />
+          <div className="tilt-card rounded-2xl overflow-hidden shadow-xl">
+            <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=800&q=80" alt="Construction site" className="w-full aspect-[4/3] object-cover" />
+          </div>
         </div>
       </section>
 
@@ -157,17 +184,52 @@ export default function App() {
             <h2 className="text-3xl md:text-4xl font-serif text-stone-900">Our Services</h2>
           </div>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {['Renovations', 'General Construction', 'Interior Designing', 'Architectural Works', 'Surveying', 'Electrical, Solar & More'].map((s, i) => (
-              <div key={s} className="bg-white p-6 rounded-2xl border border-stone-200 shadow-sm">
-                <div className="w-10 h-10 bg-[#3D2A2A]/10 text-[#3D2A2A] rounded-lg flex items-center justify-center font-bold mb-4">{String(i + 1).padStart(2, '0')}</div>
-                <h3 className="text-lg font-semibold text-stone-900">{s}</h3>
+            {[
+              { title: 'Renovations', img: 'https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=600&q=80' },
+              { title: 'General Construction', img: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=600&q=80' },
+              { title: 'Interior Designing', img: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&w=600&q=80' },
+              { title: 'Architectural Works', img: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=600&q=80' },
+              { title: 'Surveying', img: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=600&q=80' },
+              { title: 'Electrical, Solar & More', img: 'https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=600&q=80' },
+            ].map((s, i) => (
+              <div key={s.title} className="tilt-card bg-white rounded-2xl border border-stone-200 shadow-sm overflow-hidden">
+                <div className="aspect-[16/10] overflow-hidden">
+                  <img src={s.img} alt={s.title} className="w-full h-full object-cover" />
+                </div>
+                <div className="p-5">
+                  <div className="text-xs font-bold text-[#3D2A2A] mb-1">{String(i + 1).padStart(2, '0')}</div>
+                  <h3 className="text-lg font-semibold text-stone-900">{s.title}</h3>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section id="ai-tools" className="py-20 bg-white">
+      <section id="projects" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <p className="text-amber-700 text-sm font-semibold tracking-widest uppercase mb-3">Our Work</p>
+            <h2 className="text-3xl md:text-4xl font-serif text-stone-900 mb-4">Projects Gallery</h2>
+            <p className="text-stone-600 max-w-2xl mx-auto">A selection of the quality work we deliver. Real project photos can replace these anytime.</p>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {projects.map((p) => (
+              <article key={p.title} className="tilt-card group rounded-2xl overflow-hidden border border-stone-200 shadow-sm bg-white">
+                <div className="aspect-[4/3] overflow-hidden">
+                  <img src={p.img} alt={p.title} className="w-full h-full object-cover" />
+                </div>
+                <div className="p-5">
+                  <p className="text-amber-700 text-xs font-semibold uppercase tracking-wider mb-1">{p.type}</p>
+                  <h3 className="font-semibold text-stone-900">{p.title}</h3>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="ai-tools" className="py-20 bg-stone-50">
         <div className="max-w-7xl mx-auto px-4">
           <div className="text-center mb-12">
             <p className="text-amber-700 text-sm font-semibold tracking-widest uppercase mb-3">AI Powered</p>
@@ -175,29 +237,29 @@ export default function App() {
             <p className="text-stone-600 max-w-2xl mx-auto">Get a quick estimate or generate blog content with AI — tailored for construction in Ghana.</p>
           </div>
           <div className="grid lg:grid-cols-2 gap-10">
-            <div className="bg-stone-50 rounded-2xl border border-stone-200 p-6 md:p-8">
+            <div className="bg-white rounded-2xl border border-stone-200 p-6 md:p-8 shadow-sm">
               <h3 className="text-xl font-semibold text-stone-900 mb-2">AI Quote Assistant</h3>
               <p className="text-stone-600 text-sm mb-5">Describe your project and get a rough cost range + materials checklist (Ghana context).</p>
               <form onSubmit={handleAIQuote} className="space-y-4">
                 <textarea name="description" rows={4} className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-[#3D2A2A]/30 outline-none" placeholder="e.g. 3-bedroom bungalow in La, standard finish, about 140 m²..." />
                 <button type="submit" disabled={quoteLoading} className="w-full py-3 bg-[#3D2A2A] text-white font-semibold rounded-lg hover:bg-[#2a1d1d] disabled:opacity-60">{quoteLoading ? 'Generating estimate...' : 'Generate Estimate'}</button>
               </form>
-              {quoteResult && <div className="mt-5 p-4 bg-white border border-stone-200 rounded-lg text-sm whitespace-pre-wrap text-stone-700">{quoteResult}</div>}
+              {quoteResult && <div className="mt-5 p-4 bg-stone-50 border border-stone-200 rounded-lg text-sm whitespace-pre-wrap text-stone-700">{quoteResult}</div>}
             </div>
-            <div className="bg-stone-50 rounded-2xl border border-stone-200 p-6 md:p-8">
+            <div className="bg-white rounded-2xl border border-stone-200 p-6 md:p-8 shadow-sm">
               <h3 className="text-xl font-semibold text-stone-900 mb-2">AI Blog Helper</h3>
               <p className="text-stone-600 text-sm mb-5">Type a short note about a topic and get a ready-to-publish blog post.</p>
               <form onSubmit={handleBlogGenerate} className="space-y-4">
                 <textarea name="note" rows={4} className="w-full px-4 py-3 border border-stone-300 rounded-lg focus:ring-2 focus:ring-[#3D2A2A]/30 outline-none" placeholder="e.g. cost of building a 3-bedroom house in Accra 2026..." />
                 <button type="submit" disabled={blogLoading} className="w-full py-3 bg-amber-600 text-white font-semibold rounded-lg hover:bg-amber-700 disabled:opacity-60">{blogLoading ? 'Writing post...' : 'Generate Blog Post'}</button>
               </form>
-              {blogResult && <div className="mt-5 p-4 bg-white border border-stone-200 rounded-lg text-sm whitespace-pre-wrap text-stone-700 max-h-80 overflow-y-auto">{blogResult}</div>}
+              {blogResult && <div className="mt-5 p-4 bg-stone-50 border border-stone-200 rounded-lg text-sm whitespace-pre-wrap text-stone-700 max-h-80 overflow-y-auto">{blogResult}</div>}
             </div>
           </div>
         </div>
       </section>
 
-      <section id="contact" className="py-20 bg-stone-50">
+      <section id="contact" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 grid lg:grid-cols-2 gap-12">
           <div>
             <p className="text-amber-700 text-sm font-semibold tracking-widest uppercase mb-3">Contact</p>
@@ -210,7 +272,7 @@ export default function App() {
               <a href="https://wa.me/233557729151" target="_blank" rel="noopener" className="inline-flex items-center gap-2 px-5 py-2.5 bg-green-600 text-white rounded-md hover:bg-green-700">Chat on WhatsApp</a>
             </div>
           </div>
-          <div className="bg-white rounded-2xl border border-stone-200 p-6 md:p-8 shadow-sm">
+          <div className="bg-stone-50 rounded-2xl border border-stone-200 p-6 md:p-8 shadow-sm">
             <h3 className="text-xl font-semibold mb-4">Request a Free Quote</h3>
             <form onSubmit={handleQuoteSubmit} className="space-y-4">
               <input name="name" required placeholder="Full Name *" className="w-full px-4 py-2.5 border border-stone-300 rounded-lg outline-none focus:ring-2 focus:ring-[#3D2A2A]/30" />
